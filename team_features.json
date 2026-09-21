@@ -1,0 +1,27 @@
+{
+  "team": "จี้จ่อเจี๊ยบ",
+  "model": "DecisionTreeClassifier(max_depth=5, random_state=42)",
+  "features": [
+    "ProductRelated_Duration",
+    "PageValues"
+  ],
+  "features_order_note": "เรียงตาม best_features.json (สัปดาห์ 10)",
+  "scaling": {
+    "ProductRelated_Duration": {
+      "min": 0.0,
+      "max": 63973.52223
+    },
+    "PageValues": {
+      "min": 0.0,
+      "max": 361.7637419
+    }
+  },
+  "scaling_note": "ข้อมูลถูก MinMax สเกล 0–1 ตั้งแต่สัปดาห์ 3 → แอปจะสเกล input ด้วย (x-min)/(max-min)",
+  "target": {
+    "1": "เกิด Conversion (ลูกค้าซื้อ)",
+    "0": "ไม่เกิด Conversion"
+  },
+  "test_accuracy": 0.8943,
+  "cv_accuracy": 0.8844,
+  "n_rows": 12205
+}
