@@ -116,6 +116,13 @@ meta = load_meta()
 FEATURES = meta["features"]          # ['ProductRelated_Duration', 'PageValues']
 SCALE = meta["scaling"]
 
+# ค่าที่ใช้แสดงผลเท่านั้น — ใช้ .get() กันแอปพังถ้าคีย์หายจากไฟล์ JSON
+TEST_ACC = float(meta.get("test_accuracy", 0.8943))
+CV_ACC = float(meta.get("cv_accuracy", 0.8844))
+THRESHOLD = float(meta.get("threshold", 0.5))
+BASE_CV = float(meta.get("baseline_all_features_cv", 0.894))
+N_ROWS = int(meta.get("n_rows", 12205))
+
 TEAM = [("004", "กิตติธัช เภารัตน์"), ("017", "ณัฐวุฒิ กล้าหาญ"), ("026", "พัชรา ขันทะมาลา")]
 
 
@@ -219,9 +226,9 @@ with tab_predict:
 
                 st.markdown(f"""
                 <div class="mini">
-                  <div><span>แนวโน้ม</span><strong>{'สูง' if p >= 0.5 else 'ต่ำ'}</strong></div>
-                  <div><span>เกณฑ์ตัดสินใจ</span><strong>0.50</strong></div>
-                  <div><span>ความแม่นโมเดล</span><strong>{meta['test_accuracy']:.4f}</strong></div>
+                  <div><span>แนวโน้ม</span><strong>{'สูง' if p >= THRESHOLD else 'ต่ำ'}</strong></div>
+                  <div><span>เกณฑ์ตัดสินใจ</span><strong>{THRESHOLD:.2f}</strong></div>
+                  <div><span>ความแม่นโมเดล</span><strong>{TEST_ACC:.4f}</strong></div>
                 </div>""", unsafe_allow_html=True)
 
                 with st.expander("ดูค่าที่ส่งเข้าโมเดลจริง (หลังสเกล 0–1) และเหตุผล"):
@@ -245,8 +252,8 @@ with tab_model:
     m1, m2, m3, m4 = st.columns(4)
     m1.metric("ชนิดโมเดล", "Decision Tree")
     m2.metric("max_depth", str(model.get_params().get("max_depth")))
-    m3.metric("ความแม่น (test)", f"{meta['test_accuracy']:.4f}")
-    m4.metric("ความแม่น (5-fold CV)", f"{meta['cv_accuracy']:.4f}")
+    m3.metric("ความแม่น (test)", f"{TEST_ACC:.4f}")
+    m4.metric("ความแม่น (5-fold CV)", f"{CV_ACC:.4f}")
 
     left, right = st.columns([1, 1], gap="large")
     with left:
@@ -257,11 +264,11 @@ with tab_model:
     with right:
         with st.container(border=True):
             st.markdown("**ข้อมูลและข้อกำหนด**")
-            st.write(f"- ข้อมูลเทรน: **{meta['n_rows']:,} แถว** (Online Shoppers Intention · Kaggle)")
+            st.write(f"- ข้อมูลเทรน: **{N_ROWS:,} แถว** (Online Shoppers Intention · Kaggle)")
             st.write("- สเกลข้อมูล: **MinMax 0–1** (สัปดาห์ที่ 3) → แอปสเกล input อัตโนมัติ")
             st.write("- ผลลัพธ์: `1` = เกิด Conversion · `0` = ไม่เกิด")
-            st.write(f"- เกณฑ์ตัดสินใจ: **{meta['threshold']}**")
-            st.write(f"- เทียบ baseline 28 ฟีเจอร์: CV **{meta['baseline_all_features_cv']:.4f}**")
+            st.write(f"- เกณฑ์ตัดสินใจ: **{THRESHOLD:.2f}** (probability ≥ เกณฑ์ → ทำนายว่าเกิด Conversion)")
+            st.write(f"- เทียบ baseline 28 ฟีเจอร์: CV **{BASE_CV:.4f}**")
 
 with tab_help:
     c1, c2 = st.columns([1, 1], gap="large")

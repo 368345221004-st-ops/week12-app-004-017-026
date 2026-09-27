@@ -23,5 +23,7 @@
   },
   "test_accuracy": 0.8943,
   "cv_accuracy": 0.8844,
+  "threshold": 0.5,
+  "baseline_all_features_cv": 0.894,
   "n_rows": 12205
 }
