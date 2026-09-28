@@ -83,12 +83,28 @@ div.stFormSubmitButton > button:hover, div.stButton > button:hover {
 /* บังคับพื้นแอปเป็นโทนสว่างเสมอ + ให้คอนโทรลของเบราว์เซอร์ใช้โหมดสว่าง */
 [data-testid="stAppViewContainer"], .stApp { background: #F6F8FC !important; color-scheme: light; }
 [data-testid="stHeader"] { background: transparent !important; }
-.stApp, .stApp p, .stApp li, .stApp label, .stApp h1, .stApp h2, .stApp h3, .stApp h4,
-.stApp .stMarkdown, .stApp .stCaption, [data-testid="stCaptionContainer"], [data-testid="stWidgetLabel"] {
-    color: #1B1440;
-}
+
+/* ล็อกสีข้อความ "เฉพาะของ Streamlit" (ไม่แตะ HTML ที่เราออกแบบเองใน .hero/.badge) */
+.stApp { color: #1B1440; }
+[data-testid="stMarkdownContainer"] > p,
+[data-testid="stMarkdownContainer"] > ul,
+[data-testid="stMarkdownContainer"] > ol,
+[data-testid="stMarkdownContainer"] li,
+[data-testid="stWidgetLabel"], [data-testid="stWidgetLabel"] * { color: #1B1440; }
 .stApp [data-testid="stCaptionContainer"], .stApp [data-testid="stCaptionContainer"] *,
 .stApp small { color: #6B6580 !important; }
+
+/* คืนสีให้ส่วนที่ออกแบบเอง (แบนเนอร์ม่วง + การ์ดผลลัพธ์) ให้ทับกฎด้านบน */
+.hero h1, .hero p, .hero .kicker, .hero .chip { color: #FFFFFF !important; }
+.hero .chip.solid { color: #1B1440 !important; }
+.badge { color: #3C4A60; }
+.badge.risk { color: #8F2C22 !important; }
+.badge.safe { color: #1B6B42 !important; }
+.badge .tag { color: inherit !important; }
+.badge h3, .badge p { color: inherit !important; }
+.mini span { color: #6B6580 !important; }
+.mini strong { color: #1B1440 !important; }
+.footer, .footer * { color: #8A86A0 !important; }
 
 .badge { border-radius: 16px; padding: 18px 20px; margin-bottom: 12px; }
 .badge h3 { margin: 0 0 6px; font-size: 1.18rem; font-weight: 700; }
