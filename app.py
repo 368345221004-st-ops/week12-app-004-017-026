@@ -74,7 +74,21 @@ div.stFormSubmitButton > button:hover, div.stButton > button:hover {
     background: linear-gradient(180deg, #F8F7FC, #F0EDF8);
     border: 1px solid #E6E3F0; border-radius: 14px; padding: 14px 18px;
 }
-[data-testid="stMetricLabel"] { font-weight: 600; color: #5A5470; }
+/* ล็อกสีตัวเลข/ป้าย กันธีม Dark ของผู้ชมทำให้ตัวเลขกลืนกับพื้นการ์ด */
+[data-testid="stMetricValue"], [data-testid="stMetricValue"] *,
+[data-testid="stMetricValue"] > div { color: #1B1440 !important; }
+[data-testid="stMetricLabel"], [data-testid="stMetricLabel"] * { color: #5A5470 !important; }
+[data-testid="stMetricDelta"] { color: #1B6B42 !important; }
+
+/* บังคับพื้นแอปเป็นโทนสว่างเสมอ + ให้คอนโทรลของเบราว์เซอร์ใช้โหมดสว่าง */
+[data-testid="stAppViewContainer"], .stApp { background: #F6F8FC !important; color-scheme: light; }
+[data-testid="stHeader"] { background: transparent !important; }
+.stApp, .stApp p, .stApp li, .stApp label, .stApp h1, .stApp h2, .stApp h3, .stApp h4,
+.stApp .stMarkdown, .stApp .stCaption, [data-testid="stCaptionContainer"], [data-testid="stWidgetLabel"] {
+    color: #1B1440;
+}
+.stApp [data-testid="stCaptionContainer"], .stApp [data-testid="stCaptionContainer"] *,
+.stApp small { color: #6B6580 !important; }
 
 .badge { border-radius: 16px; padding: 18px 20px; margin-bottom: 12px; }
 .badge h3 { margin: 0 0 6px; font-size: 1.18rem; font-weight: 700; }
